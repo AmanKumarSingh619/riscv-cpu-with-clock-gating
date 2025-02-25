@@ -15,4 +15,4 @@ It includes a **5-stage pipeline** and **clock gating** for low-power operation.
 2. Compile the design and testbench.
 
 ## 📷 Circuit Schematic  
-![RISC-V CPU Schematic](docs/images/schematic.png)
+![RISC-V CPU Schematic](riscv_pipeline.jpeg)
