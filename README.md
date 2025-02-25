@@ -16,13 +16,3 @@ It includes a **5-stage pipeline** and **clock gating** for low-power operation.
    ```sh
    iverilog -o riscv_tb src/*.sv tb/riscv_tb.sv
    vvp riscv_tb
-
-
----
-
-### **📍 Next Steps**
-✅ **Go to GitHub and create `README.md`.**  
-✅ **Paste the content above and commit the file.**  
-✅ **Your repo is now clean and professional!**  
-
-🚀 **Let me know once it's live! I'd love to check it out!** 🔥
