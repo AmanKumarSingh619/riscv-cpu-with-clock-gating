@@ -17,7 +17,7 @@ module riscv_cpu #(
     logic [3:0] alu_ctrl;
     logic zero, branch_taken;
 
-    // ✅ INSTRUCTION FETCH STAGE (Includes PC + Instruction Memory)
+    // INSTRUCTION FETCH STAGE (Includes PC + Instruction Memory)
     instr_fetch #(.ADDR_WIDTH(ADDR_WIDTH), .INSTR_WIDTH(DATA_WIDTH)) IFETCH (
         .clk(clk),
         .reset_n(reset_n),
@@ -27,7 +27,7 @@ module riscv_cpu #(
         .instr(instr)
     );
 
-    // ✅ DECODE INSTRUCTION FIELDS
+    // DECODE INSTRUCTION FIELDS
     assign opcode = instr[6:0];
     assign rd     = instr[11:7];
     assign funct3 = instr[14:12];
@@ -35,7 +35,7 @@ module riscv_cpu #(
     assign rs2    = instr[24:20];
     assign funct7 = instr[31:25];
 
-    // ✅ CONTROL UNIT
+    // CONTROL UNIT
     control_unit CU (
         .opcode(opcode),
         .RegWrite(RegWrite),
@@ -47,7 +47,7 @@ module riscv_cpu #(
         .ALUOp(ALUOp)
     );
 
-    // ✅ REGISTER FILE
+    // REGISTER FILE
     reg_file #(.REG_WIDTH(DATA_WIDTH)) REG_FILE (
         .clk(clk),
         .reset_n(reset_n),
@@ -60,7 +60,7 @@ module riscv_cpu #(
         .read_data2(read_data2)
     );
 
-    // ✅ ALU CONTROL UNIT
+    // ALU CONTROL UNIT
     alu_control ALU_CTRL (
         .opcode(opcode),
         .funct3(funct3),
@@ -68,7 +68,7 @@ module riscv_cpu #(
         .alu_ctrl(alu_ctrl)
     );
 
-    // ✅ ALU EXECUTION STAGE
+    // ALU EXECUTION STAGE
     alu #(.DATA_WIDTH(DATA_WIDTH)) ALU (
         .operand_a(read_data1),
         .operand_b(ALUSrc ? instr[31:20] : read_data2), // Immediate or rs2
@@ -77,10 +77,10 @@ module riscv_cpu #(
         .zero(zero)
     );
 
-    // ✅ BRANCH LOGIC
+    // BRANCH LOGIC
     assign branch_taken = Branch & zero;
 
-    // ✅ DATA MEMORY (FOR LOAD/STORE)
+    // DATA MEMORY (FOR LOAD/STORE)
     data_mem #(.DATA_WIDTH(DATA_WIDTH), .ADDR_WIDTH(ADDR_WIDTH)) DMEM (
         .clk(clk),
         .MemRead(MemRead),
@@ -90,10 +90,10 @@ module riscv_cpu #(
         .read_data(mem_read_data)
     );
 
-    // ✅ WRITE-BACK STAGE
+    // WRITE-BACK STAGE
     assign write_data = MemtoReg ? mem_read_data : alu_result;
 
-    // ✅ JAL LOGIC
+    // JAL LOGIC
     logic [31:0] jal_imm;
     assign jal_imm = {{12{instr[31]}}, instr[19:12], instr[20], instr[30:21], 1'b0}; // Correct JAL immediate
 
@@ -103,14 +103,14 @@ module riscv_cpu #(
     logic [31:0] jal_target;
     assign jal_target = pc + jal_imm; // Compute jump target address
 
-    // ✅ INSTANTIATE PC MODULE (Now Includes JAL Handling)
+    // INSTANTIATE PC MODULE (Now Includes JAL Handling)
     pc PC (
         .clk(clk),
         .reset_n(reset_n),
         .branch_taken(branch_taken),
         .branch_target(alu_result),
-        .jal_taken(jal_taken),   // ✅ New signal for JAL
-        .jal_target(jal_target), // ✅ New JAL target address
+        .jal_taken(jal_taken),   // New signal for JAL
+        .jal_target(jal_target), // New JAL target address
         .pc(pc)
     );
 
