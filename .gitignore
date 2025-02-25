@@ -1,0 +1,39 @@
+# Ignore compiled and simulation files
+*.log
+*.vcd
+*.out
+*.o
+*.bit
+*.jou
+*.pb
+*.wdb
+*.dmp
+
+# Ignore Vivado-generated files
+*.cache/
+*.hw/
+*.ip_user_files/
+*.sim/
+*.runs/
+*.xpr
+*.xpr.lock
+*.xsim/
+*.str
+
+# Ignore ModelSim & QuestaSim files
+transcript
+vsim.wlf
+*.wlf
+work/
+
+# Ignore Icarus Verilog files
+*.vvp
+
+# Ignore temporary files
+*.tmp
+*.backup
+*.bak
+
+# Ignore system files
+.DS_Store
+Thumbs.db
