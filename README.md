@@ -12,7 +12,7 @@ It includes a **5-stage pipeline** and **clock gating** for low-power operation.
 
 ## 🚀 How to Run
 1. Use **Vivado, ModelSim, or Icarus Verilog** for simulation.  
-2. Compile the design and testbench:
-   ```sh
-   iverilog -o riscv_tb src/*.sv tb/riscv_tb.sv
-   vvp riscv_tb
+2. Compile the design and testbench.
+
+## 📷 Circuit Schematic  
+![RISC-V CPU Schematic](docs/images/schematic.png)
