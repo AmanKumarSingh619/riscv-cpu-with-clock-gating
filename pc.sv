@@ -14,11 +14,11 @@ module pc #(
         if (!reset_n)
             pc <= 0;
         else if (branch_taken)
-            pc <= branch_target;  // ✅ Branch instruction
+            pc <= branch_target;  // Branch instruction
         else if (jal_taken)
-            pc <= jal_target;      // ✅ JAL instruction
+            pc <= jal_target;      // JAL instruction
         else
-            pc <= pc + 4;          // ✅ Normal instruction execution
+            pc <= pc + 4;          // Normal instruction execution
     end
 
 endmodule
